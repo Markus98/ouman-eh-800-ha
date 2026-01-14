@@ -1,0 +1,40 @@
+[project]
+name = "ouman-eh-800-ha"
+version = "0.1.0"
+description = "Home Assistant integration for Ouman EH-800"
+requires-python = ">=3.13.2"
+dependencies = [
+    "ouman-eh-800-api==0.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=4.0",
+    "pytest-homeassistant-custom-component>=0.13",
+    "ruff>=0.4",
+    "mypy>=1.10",
+]
+
+# TODO: remove this before release and move to released package
+[tool.uv.sources]
+ouman-eh-800-api = { path = "../ouman-eh-800-api", editable = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
