@@ -1,30 +1,109 @@
 {
-    "config": {
-        "abort": {
-            "already_configured": "Device is already configured"
-        },
-        "error": {
-            "cannot_connect": "Failed to connect",
-            "invalid_auth": "Invalid authentication",
-            "unknown": "Unexpected error"
-        },
-        "step": {
-            "user": {
-                "data": {
-                    "host": "Host",
-                    "password": "Password",
-                    "username": "Username"
-                }
-            }
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "host": "Host",
+          "username": "Username",
+          "password": "Password"
         }
+      }
     },
-    "options": {
-        "step": {
-            "init": {
-                "data": {
-                    "scan_interval_seconds": "Scan interval (seconds)"
-                }
-            }
-        }
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Device is already configured"
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval_seconds": "Scan interval (seconds)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "outside_temperature": { "name": "Outside temperature" },
+      "relay_configuration_type": { "name": "Relay configuration type" },
+      "relay_status_text": { "name": "Relay status" },
+      "l2_installed_status": { "name": "L2 installed status" },
+      "l1_heating_shutdown_status": { "name": "L1 heating shutdown status" },
+      "l1_temperature_level_status_text": { "name": "L1 temperature level status" },
+      "l1_circuit_name": { "name": "L1 circuit name" },
+      "l1_supply_water_temperature": { "name": "L1 supply water temperature" },
+      "l1_valve_position": { "name": "L1 valve position" },
+      "l1_supply_water_temperature_setpoint": { "name": "L1 supply water temperature setpoint" },
+      "l1_room_temperature_setpoint": { "name": "L1 room temperature setpoint" },
+      "l1_room_sensor_installed": { "name": "L1 room sensor installed" },
+      "l1_room_sensor_potentiometer": { "name": "L1 room sensor potentiometer" },
+      "l1_room_temperature": { "name": "L1 room temperature" },
+      "l2_temperature_level_status_text": { "name": "L2 temperature level status" },
+      "l2_circuit_name": { "name": "L2 circuit name" },
+      "l2_supply_water_temperature": { "name": "L2 supply water temperature" },
+      "l2_supply_water_temperature_setpoint": { "name": "L2 supply water temperature setpoint" },
+      "l2_room_temperature_setpoint": { "name": "L2 room temperature setpoint" },
+      "l2_room_sensor_installed": { "name": "L2 room sensor installed" },
+      "l2_room_sensor_potentiometer": { "name": "L2 room sensor potentiometer" },
+      "l2_room_temperature": { "name": "L2 room temperature" }
+    },
+    "number": {
+      "trend_sampling_interval": { "name": "Trend sampling interval" },
+      "l1_valve_position_setpoint": { "name": "L1 valve position setpoint" },
+      "l1_curve_minus_20_temperature": { "name": "L1 curve -20°C temperature" },
+      "l1_curve_0_temperature": { "name": "L1 curve 0°C temperature" },
+      "l1_curve_20_temperature": { "name": "L1 curve +20°C temperature" },
+      "l1_temperature_drop": { "name": "L1 temperature drop" },
+      "l1_big_temperature_drop": { "name": "L1 big temperature drop" },
+      "l1_water_out_minimum_temperature": { "name": "L1 water out minimum temperature" },
+      "l1_water_out_maximum_temperature": { "name": "L1 water out maximum temperature" },
+      "l1_room_temperature_fine_tuning": { "name": "L1 room temperature fine tuning" },
+      "l2_valve_position_setpoint": { "name": "L2 valve position setpoint" },
+      "l2_curve_minus_20_temperature": { "name": "L2 curve -20°C temperature" },
+      "l2_curve_0_temperature": { "name": "L2 curve 0°C temperature" },
+      "l2_curve_20_temperature": { "name": "L2 curve 20°C temperature" },
+      "l2_temperature_drop": { "name": "L2 temperature drop" },
+      "l2_big_temperature_drop": { "name": "L2 big temperature drop" },
+      "l2_water_out_minimum_temperature": { "name": "L2 water out minimum temperature" },
+      "l2_water_out_maximum_temperature": { "name": "L2 water out maximum temperature" },
+      "l2_room_temperature_fine_tuning": { "name": "L2 room temperature fine tuning" }
+    },
+    "select": {
+      "home_away_mode": {
+        "name": "Home/away mode",
+        "state": {
+          "HOME": "Home",
+          "AWAY": "Away",
+          "OFF": "Off"
+        }
+      },
+      "l1_operation_mode": {
+        "name": "L1 operation mode",
+        "state": {
+          "AUTOMATIC": "Automatic",
+          "TEMPERATURE_DROP": "Temperature drop",
+          "BIG_TEMPERATURE_DROP": "Big temperature drop",
+          "NORMAL_TEMPERATURE": "Normal temperature",
+          "SHUTDOWN": "Shutdown",
+          "MANUAL_VALVE_CONTROL": "Manual valve control"
+        }
+      },
+      "l2_operation_mode": {
+        "name": "L2 operation mode",
+        "state": {
+          "AUTOMATIC": "Automatic",
+          "TEMPERATURE_DROP": "Temperature drop",
+          "BIG_TEMPERATURE_DROP": "Big temperature drop",
+          "NORMAL_TEMPERATURE": "Normal temperature",
+          "SHUTDOWN": "Shutdown",
+          "MANUAL_VALVE_CONTROL": "Manual valve control"
+        }
+      }
+    }
+  }
 }

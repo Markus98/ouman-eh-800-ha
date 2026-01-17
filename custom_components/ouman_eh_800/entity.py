@@ -27,4 +27,4 @@ class OumanEh800Entity(CoordinatorEntity[OumanEh800Coordinator]):
             # sw_version=coordinator.device_version,  # TODO: if available from API
         )
         self._attr_unique_id = f"{coordinator.config_entry.entry_id}_{endpoint.name}"
-        self._attr_name = endpoint.name
+        self._attr_translation_key = endpoint.name
