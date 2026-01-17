@@ -45,12 +45,6 @@ class OumanEh800NumberEntity(OumanEh800Entity, NumberEntity):
         super().__init__(coordinator, endpoint)
         self._endpoint: NumberControlOumanEndpoint = endpoint
 
-        has_unit = endpoint.unit in (
-            OumanUnit.CELSIUS,
-            OumanUnit.PERCENT,
-            OumanUnit.SECOND,
-        )
-
         self._attr_mode = NumberMode.BOX
         if endpoint.unit == OumanUnit.CELSIUS:
             self._attr_device_class = NumberDeviceClass.TEMPERATURE
@@ -62,7 +56,7 @@ class OumanEh800NumberEntity(OumanEh800Entity, NumberEntity):
             ):
                 self._attr_device_class = NumberDeviceClass.TEMPERATURE_DELTA
 
-        self._attr_native_unit_of_measurement = endpoint.unit if has_unit else None
+        self._attr_native_unit_of_measurement = endpoint.unit
         self._attr_native_max_value = float(endpoint.max_val)
         self._attr_native_min_value = float(endpoint.min_val)
         self._attr_native_step = (

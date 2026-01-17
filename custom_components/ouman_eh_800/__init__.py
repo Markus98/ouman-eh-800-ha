@@ -11,20 +11,15 @@ from ouman_eh_800_api import OumanEh800Client
 from .const import CONF_SCAN_INTERVAL_SECONDS, DEFAULT_SCAN_INTERVAL
 from .coordinator import OumanEh800Coordinator
 
-# TODO List the platforms that you want to support.
-# For your initial PR, limit it to 1 platform.
 _PLATFORMS: list[Platform] = [
     Platform.SENSOR,
     Platform.NUMBER,
     Platform.SELECT,
 ]
 
-# TODO Create ConfigEntry type alias with API object
-# TODO Rename type alias and update all entry annotations
-type OumanEh800ConfigEntry = ConfigEntry[OumanEh800Coordinator]  # noqa: F821
+type OumanEh800ConfigEntry = ConfigEntry[OumanEh800Coordinator]
 
 
-# TODO Update entry annotation
 async def async_setup_entry(hass: HomeAssistant, entry: OumanEh800ConfigEntry) -> bool:
     """Set up Ouman EH-800 from a config entry."""
     client = OumanEh800Client(
@@ -33,8 +28,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: OumanEh800ConfigEntry) -
         password=entry.data[CONF_PASSWORD],
         address=entry.data[CONF_URL],
     )
-
-    # TODO: verify that login works
 
     scan_interval = entry.options.get(CONF_SCAN_INTERVAL_SECONDS, DEFAULT_SCAN_INTERVAL)
     coordinator = OumanEh800Coordinator(hass, entry, client, scan_interval)

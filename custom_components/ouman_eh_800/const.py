@@ -15,7 +15,7 @@ from ouman_eh_800_api.registry import (
 DOMAIN = "ouman_eh_800"
 
 CONF_SCAN_INTERVAL_SECONDS = "scan_interval_seconds"
-DEFAULT_SCAN_INTERVAL = 30
+DEFAULT_SCAN_INTERVAL = 60
 
 ENDPOINT_CATEGORIES: Mapping[OumanEndpoint, EntityCategory] = {
     # L1
@@ -67,5 +67,6 @@ ENDPOINTS_DISABLED_BY_DEFAULT: frozenset[OumanEndpoint] = frozenset(
         SystemEndpoints.RELAY_STATUS_TEXT,
         SystemEndpoints.L2_INSTALLED_STATUS,
         SystemEndpoints.RELAY_CONFIGURATION_TYPE,
+        SystemEndpoints.TREND_SAMPLE_INTERVAL,
     )
 )

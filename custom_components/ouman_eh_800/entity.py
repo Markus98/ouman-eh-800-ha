@@ -1,5 +1,6 @@
 """Base entity for Ouman EH-800."""
 
+from homeassistant.const import CONF_URL
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from ouman_eh_800_api.endpoint import OumanEndpoint
@@ -25,7 +26,7 @@ class OumanEh800Entity(CoordinatorEntity[OumanEh800Coordinator]):
             name="Ouman EH-800",
             manufacturer="Ouman",
             model="EH-800",
-            # sw_version=coordinator.device_version,  # TODO: if available from API
+            configuration_url=coordinator.config_entry.data[CONF_URL],
         )
         self._attr_unique_id = f"{coordinator.config_entry.unique_id}_{endpoint.name}"
         self._attr_translation_key = endpoint.name

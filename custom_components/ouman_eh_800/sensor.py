@@ -43,13 +43,8 @@ class OumanEh800SensorEntity(OumanEh800Entity, SensorEntity):
         super().__init__(coordinator, endpoint)
 
         is_numerical = isinstance(endpoint, NumberOumanEndpoint)
-        has_unit = endpoint.unit in (
-            OumanUnit.CELSIUS,
-            OumanUnit.PERCENT,
-            OumanUnit.SECOND,
-        )
 
-        self._attr_native_unit_of_measurement = endpoint.unit if has_unit else None
+        self._attr_native_unit_of_measurement = endpoint.unit
         self._attr_state_class = SensorStateClass.MEASUREMENT if is_numerical else None
         self._attr_suggested_display_precision = 1 if is_numerical else None
 

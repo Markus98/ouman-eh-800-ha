@@ -1,18 +1,22 @@
 import logging
 from datetime import timedelta
+from typing import Sequence
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from ouman_eh_800_api import OumanEh800Client
-from ouman_eh_800_api.registry import OumanRegistry
+from ouman_eh_800_api.endpoint import OumanEndpoint, OumanValues
 from ouman_eh_800_api.exceptions import OumanClientCommunicationError
+from ouman_eh_800_api.registry import OumanRegistrySet
 
 _LOGGER = logging.getLogger(__name__)
 
 
 class OumanEh800Coordinator(DataUpdateCoordinator):
     """Ouman EH-800 data update coordinator."""
+
+    _registry_set: OumanRegistrySet
 
     def __init__(
         self,
@@ -32,25 +36,21 @@ class OumanEh800Coordinator(DataUpdateCoordinator):
         )
         self.client: OumanEh800Client = client
 
-    async def _async_setup(self):
+    async def _async_setup(self) -> None:
         """Fetch available registries from the device."""
-        self._registries: list[
-            type[OumanRegistry]
-        ] = await self.client.get_active_registries()
+        # Even though not required to fetch values, perform login once
+        # at the start to verify that the credentials are valid.
+        await self.client.login()
+
+        self._registry_set = await self.client.get_active_registries()
 
     @property
-    def registries(self):
-        return self._registries
+    def endpoints(self) -> Sequence[OumanEndpoint]:
+        return self._registry_set.endpoints
 
-    @property
-    def endpoints(self):
-        return (
-            endpoint for registry in self.registries for endpoint in registry.iterate_endpoints()
-        )
-
-    async def _async_update_data(self):
+    async def _async_update_data(self) -> dict[OumanEndpoint, OumanValues]:
         """Fetch registry values from the device."""
         try:
-            return await self.client.get_registry_values(self.registries)
+            return await self.client.get_values(self._registry_set)
         except OumanClientCommunicationError as err:
             raise UpdateFailed("Error communicating with API") from err

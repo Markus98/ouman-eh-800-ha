@@ -34,11 +34,6 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 )
 
 
-def _normalize_url(url: str) -> str:
-    """Normalize URL by stripping whitespace, trailing slashes, and /eh800.html."""
-    return url.strip().removesuffix("/").removesuffix("/eh800.html").removesuffix("/")
-
-
 OPTIONS_SCHEMA = vol.Schema(
     {
         vol.Optional(
@@ -48,8 +43,13 @@ OPTIONS_SCHEMA = vol.Schema(
 )
 
 
-async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
-    """Validate the user input allows us to connect.
+def _normalize_url(url: str) -> str:
+    """Normalize URL by stripping whitespace, trailing slashes, and /eh800.html."""
+    return url.strip().removesuffix("/").removesuffix("/eh800.html").removesuffix("/")
+
+
+async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> None:
+    """Validate the user input allows us to connect and login.
 
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
     """
@@ -61,8 +61,6 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     )
 
     await client.login()
-
-    return {"title": "Ouman EH-800"}
 
 
 class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -84,7 +82,7 @@ class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             user_input[CONF_URL] = _normalize_url(user_input[CONF_URL])
             try:
-                info = await validate_input(self.hass, user_input)
+                await validate_input(self.hass, user_input)
             except OumanClientCommunicationError:
                 errors["base"] = "cannot_connect"
             except OumanClientAuthenticationError:
@@ -95,7 +93,7 @@ class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
             else:
                 await self.async_set_unique_id(user_input[CONF_URL])
                 self._abort_if_unique_id_configured()
-                return self.async_create_entry(title=info["title"], data=user_input)
+                return self.async_create_entry(title="Ouman EH-800", data=user_input)
 
         return self.async_show_form(
             step_id="user", data_schema=STEP_USER_DATA_SCHEMA, errors=errors
