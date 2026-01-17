@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME, Platform
+from homeassistant.const import CONF_PASSWORD, CONF_URL, CONF_USERNAME, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from ouman_eh_800_api import OumanEh800Client
@@ -31,7 +31,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: OumanEh800ConfigEntry) -
         session=async_get_clientsession(hass),
         username=entry.data[CONF_USERNAME],
         password=entry.data[CONF_PASSWORD],
-        address=entry.data[CONF_HOST],
+        address=entry.data[CONF_URL],
     )
 
     # TODO: verify that login works

@@ -3,9 +3,12 @@
     "step": {
       "user": {
         "data": {
-          "host": "[%key:common::config_flow::data::host%]",
+          "url": "[%key:common::config_flow::data::url%]",
           "username": "[%key:common::config_flow::data::username%]",
           "password": "[%key:common::config_flow::data::password%]"
+        },
+        "data_description": {
+          "url": "The URL of the Ouman EH-800 web interface (e.g., 'http://<device_ip>' or 'http://<device_ip>:<port>')."
         }
       }
     },

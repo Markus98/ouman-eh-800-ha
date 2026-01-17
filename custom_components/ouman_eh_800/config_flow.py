@@ -12,7 +12,7 @@ from homeassistant.config_entries import (
     ConfigFlowResult,
     OptionsFlowWithReload,
 )
-from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
+from homeassistant.const import CONF_PASSWORD, CONF_URL, CONF_USERNAME
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from ouman_eh_800_api import OumanEh800Client
@@ -27,11 +27,17 @@ _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_HOST): str,
+        vol.Required(CONF_URL): str,
         vol.Required(CONF_USERNAME): str,
         vol.Required(CONF_PASSWORD): str,
     }
 )
+
+
+def _normalize_url(url: str) -> str:
+    """Normalize URL by stripping whitespace, trailing slashes, and /eh800.html."""
+    return url.strip().removesuffix("/").removesuffix("/eh800.html").removesuffix("/")
+
 
 OPTIONS_SCHEMA = vol.Schema(
     {
@@ -51,7 +57,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
         session=async_get_clientsession(hass),
         username=data[CONF_USERNAME],
         password=data[CONF_PASSWORD],
-        address=data[CONF_HOST],
+        address=data[CONF_URL],
     )
 
     await client.login()
@@ -76,6 +82,7 @@ class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
         """Handle the initial step."""
         errors: dict[str, str] = {}
         if user_input is not None:
+            user_input[CONF_URL] = _normalize_url(user_input[CONF_URL])
             try:
                 info = await validate_input(self.hass, user_input)
             except OumanClientCommunicationError:
@@ -86,6 +93,8 @@ class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
                 _LOGGER.exception("Unexpected exception")
                 errors["base"] = "unknown"
             else:
+                await self.async_set_unique_id(user_input[CONF_URL])
+                self._abort_if_unique_id_configured()
                 return self.async_create_entry(title=info["title"], data=user_input)
 
         return self.async_show_form(

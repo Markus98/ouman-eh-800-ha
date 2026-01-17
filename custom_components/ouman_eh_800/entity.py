@@ -21,13 +21,13 @@ class OumanEh800Entity(CoordinatorEntity[OumanEh800Coordinator]):
         self._endpoint = endpoint
 
         self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
+            identifiers={(DOMAIN, coordinator.config_entry.unique_id)},
             name="Ouman EH-800",
             manufacturer="Ouman",
             model="EH-800",
             # sw_version=coordinator.device_version,  # TODO: if available from API
         )
-        self._attr_unique_id = f"{coordinator.config_entry.entry_id}_{endpoint.name}"
+        self._attr_unique_id = f"{coordinator.config_entry.unique_id}_{endpoint.name}"
         self._attr_translation_key = endpoint.name
         self._attr_entity_category = ENDPOINT_CATEGORIES.get(endpoint)
         self._attr_entity_registry_enabled_default = (

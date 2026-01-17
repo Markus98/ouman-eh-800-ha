@@ -1,6 +1,6 @@
 """Constants for the Ouman EH-800 integration."""
 
-from typing import Mapping
+from collections.abc import Mapping
 
 from homeassistant.const import EntityCategory
 from ouman_eh_800_api.endpoint import OumanEndpoint
@@ -53,7 +53,7 @@ ENDPOINT_CATEGORIES: Mapping[OumanEndpoint, EntityCategory] = {
 }
 
 ENDPOINTS_DISABLED_BY_DEFAULT: frozenset[OumanEndpoint] = frozenset(
-    [
+    (
         # L1
         L1Endpoints.CIRCUIT_NAME,
         L1Endpoints.HEATING_SHUTDOWN_STATUS,
@@ -67,5 +67,5 @@ ENDPOINTS_DISABLED_BY_DEFAULT: frozenset[OumanEndpoint] = frozenset(
         SystemEndpoints.RELAY_STATUS_TEXT,
         SystemEndpoints.L2_INSTALLED_STATUS,
         SystemEndpoints.RELAY_CONFIGURATION_TYPE,
-    ]
+    )
 )

@@ -3,9 +3,12 @@
     "step": {
       "user": {
         "data": {
-          "host": "Host",
+          "url": "URL",
           "username": "Username",
           "password": "Password"
+        },
+        "data_description": {
+          "url": "The URL of the Ouman EH-800 web interface (e.g., 'http://<device_ip>' or 'http://<device_ip>:<port>')."
         }
       }
     },
