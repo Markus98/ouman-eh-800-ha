@@ -2,10 +2,9 @@
 
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-
 from ouman_eh_800_api.endpoint import OumanEndpoint
 
-from .const import DOMAIN
+from .const import DOMAIN, ENDPOINT_CATEGORIES, ENDPOINTS_DISABLED_BY_DEFAULT
 from .coordinator import OumanEh800Coordinator
 
 
@@ -14,7 +13,9 @@ class OumanEh800Entity(CoordinatorEntity[OumanEh800Coordinator]):
 
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator: OumanEh800Coordinator, endpoint: OumanEndpoint) -> None:
+    def __init__(
+        self, coordinator: OumanEh800Coordinator, endpoint: OumanEndpoint
+    ) -> None:
         """Initialize the entity."""
         super().__init__(coordinator)
         self._endpoint = endpoint
@@ -28,3 +29,7 @@ class OumanEh800Entity(CoordinatorEntity[OumanEh800Coordinator]):
         )
         self._attr_unique_id = f"{coordinator.config_entry.entry_id}_{endpoint.name}"
         self._attr_translation_key = endpoint.name
+        self._attr_entity_category = ENDPOINT_CATEGORIES.get(endpoint)
+        self._attr_entity_registry_enabled_default = (
+            endpoint not in ENDPOINTS_DISABLED_BY_DEFAULT
+        )
