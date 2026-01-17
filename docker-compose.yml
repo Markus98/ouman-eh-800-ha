@@ -1,0 +1,14 @@
+# A docker compose stack meant for simultaneous local development of the api & integration
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    volumes:
+      - ./ha-config:/config
+      - ./custom_components/ouman_eh_800:/config/custom_components/ouman_eh_800:ro
+      - ../ouman-eh-800-api:/ouman-eh-800-api:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "8123:8123"
+    restart: unless-stopped
+    privileged: true
+    command: sh -c "pip install -e /ouman-eh-800-api && /init"
