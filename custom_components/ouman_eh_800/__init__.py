@@ -8,6 +8,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from ouman_eh_800_api import OumanEh800Client
 
+from .const import CONF_SCAN_INTERVAL_SECONDS, DEFAULT_SCAN_INTERVAL
 from .coordinator import OumanEh800Coordinator
 
 # TODO List the platforms that you want to support.
@@ -26,16 +27,17 @@ type OumanEh800ConfigEntry = ConfigEntry[OumanEh800Coordinator]  # noqa: F821
 # TODO Update entry annotation
 async def async_setup_entry(hass: HomeAssistant, entry: OumanEh800ConfigEntry) -> bool:
     """Set up Ouman EH-800 from a config entry."""
-
     client = OumanEh800Client(
         session=async_get_clientsession(hass),
         username=entry.data[CONF_USERNAME],
         password=entry.data[CONF_PASSWORD],
         address=entry.data[CONF_HOST],
     )
-    coordinator = OumanEh800Coordinator(hass, entry, client)
 
     # TODO: verify that login works
+
+    scan_interval = entry.options.get(CONF_SCAN_INTERVAL_SECONDS, DEFAULT_SCAN_INTERVAL)
+    coordinator = OumanEh800Coordinator(hass, entry, client, scan_interval)
 
     await coordinator.async_config_entry_first_refresh()
 

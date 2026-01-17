@@ -17,5 +17,14 @@
                 }
             }
         }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval_seconds": "Scan interval (seconds)"
+                }
+            }
+        }
     }
 }

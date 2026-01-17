@@ -19,6 +19,7 @@ class OumanEh800Coordinator(DataUpdateCoordinator):
         hass: HomeAssistant,
         config_entry: ConfigEntry,
         client: OumanEh800Client,
+        update_interval: int,
     ):
         """Initialize the coordinator."""
         super().__init__(
@@ -26,7 +27,7 @@ class OumanEh800Coordinator(DataUpdateCoordinator):
             _LOGGER,
             name="Ouman EH-800",
             config_entry=config_entry,
-            update_interval=timedelta(seconds=30),
+            update_interval=timedelta(seconds=update_interval),
             always_update=False,
         )
         self.client: OumanEh800Client = client
