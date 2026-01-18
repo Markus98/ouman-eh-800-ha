@@ -5,11 +5,11 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from ouman_eh_800_api.const import OumanUnit
-from ouman_eh_800_api.endpoint import (
+from ouman_eh_800_api import (
     ControllableEndpoint,
     NumberOumanEndpoint,
     OumanEndpoint,
+    OumanUnit,
 )
 
 from . import OumanEh800ConfigEntry

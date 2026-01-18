@@ -5,10 +5,13 @@ from typing import Sequence
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from ouman_eh_800_api import OumanEh800Client
-from ouman_eh_800_api.endpoint import OumanEndpoint, OumanValues
-from ouman_eh_800_api.exceptions import OumanClientCommunicationError
-from ouman_eh_800_api.registry import OumanRegistrySet
+from ouman_eh_800_api import (
+    OumanClientCommunicationError,
+    OumanEh800Client,
+    OumanEndpoint,
+    OumanRegistrySet,
+    OumanValues,
+)
 
 _LOGGER = logging.getLogger(__name__)
 

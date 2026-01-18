@@ -1,13 +1,14 @@
 from homeassistant.components.number import NumberDeviceClass, NumberEntity, NumberMode
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from ouman_eh_800_api.const import OumanUnit
-from ouman_eh_800_api.endpoint import FloatControlOumanEndpoint, IntControlOumanEndpoint
-from ouman_eh_800_api.registry import (
+from ouman_eh_800_api import (
+    FloatControlOumanEndpoint,
+    IntControlOumanEndpoint,
     L1Endpoints,
     L1EndpointsWithRoomSensor,
     L2Endpoints,
     L2EndpointsWithRoomSensor,
+    OumanUnit,
 )
 
 from . import OumanEh800ConfigEntry

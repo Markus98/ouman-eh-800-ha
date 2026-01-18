@@ -3,12 +3,12 @@
 from collections.abc import Mapping
 
 from homeassistant.const import EntityCategory
-from ouman_eh_800_api.endpoint import OumanEndpoint
-from ouman_eh_800_api.registry import (
+from ouman_eh_800_api import (
     L1Endpoints,
     L1EndpointsWithRoomSensor,
     L2Endpoints,
     L2EndpointsWithRoomSensor,
+    OumanEndpoint,
     SystemEndpoints,
 )
 

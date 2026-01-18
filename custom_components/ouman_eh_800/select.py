@@ -1,7 +1,7 @@
 from homeassistant.components.select import SelectEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from ouman_eh_800_api.endpoint import EnumControlOumanEndpoint
+from ouman_eh_800_api import EnumControlOumanEndpoint
 
 from . import OumanEh800ConfigEntry
 from .coordinator import OumanEh800Coordinator

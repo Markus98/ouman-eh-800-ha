@@ -3,7 +3,7 @@
 from homeassistant.const import CONF_URL
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from ouman_eh_800_api.endpoint import OumanEndpoint
+from ouman_eh_800_api import OumanEndpoint
 
 from .const import DOMAIN, ENDPOINT_CATEGORIES, ENDPOINTS_DISABLED_BY_DEFAULT
 from .coordinator import OumanEh800Coordinator

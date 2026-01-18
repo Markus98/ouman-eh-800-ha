@@ -15,10 +15,10 @@ from homeassistant.config_entries import (
 from homeassistant.const import CONF_PASSWORD, CONF_URL, CONF_USERNAME
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from ouman_eh_800_api import OumanEh800Client
-from ouman_eh_800_api.exceptions import (
+from ouman_eh_800_api import (
     OumanClientAuthenticationError,
     OumanClientCommunicationError,
+    OumanEh800Client,
 )
 
 from .const import CONF_SCAN_INTERVAL_SECONDS, DEFAULT_SCAN_INTERVAL, DOMAIN
