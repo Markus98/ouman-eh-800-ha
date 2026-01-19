@@ -11,4 +11,3 @@ services:
       - "8123:8123"
     restart: unless-stopped
     privileged: true
-    command: sh -c "pip install -e /ouman-eh-800-api && /init"

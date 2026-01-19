@@ -17,10 +17,6 @@ dev = [
     "mypy>=1.10",
 ]
 
-# TODO: remove this before release and move to released package
-[tool.uv.sources]
-ouman-eh-800-api = { path = "../ouman-eh-800-api", editable = true }
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
