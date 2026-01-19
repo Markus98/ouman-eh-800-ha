@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Home Assistant integration for Ouman EH-800"
 requires-python = ">=3.13.2"
 dependencies = [
-    "ouman-eh-800-api==0.1.0",
+    "ouman-eh-800-api==0.2.0",
 ]
 
 [project.optional-dependencies]
@@ -31,6 +31,4 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.mypy]
 python_version = "3.13"
-warn_return_any = true
-warn_unused_configs = true
-ignore_missing_imports = true
+strict = true

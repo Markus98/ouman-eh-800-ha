@@ -55,6 +55,8 @@ class OumanEh800SensorEntity(OumanEh800Entity, SensorEntity):
             self._attr_icon = "mdi:pipe-valve"
 
     @property
-    def native_value(self):
+    def native_value(self) -> float | str:
         """Return the current sensor value."""
-        return self.coordinator.data[self._endpoint]
+        value = self.coordinator.data[self._endpoint]
+        assert isinstance(value, float | str)
+        return value

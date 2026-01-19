@@ -1,7 +1,7 @@
 from homeassistant.components.select import SelectEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from ouman_eh_800_api import EnumControlOumanEndpoint
+from ouman_eh_800_api import ControlEnum, EnumControlOumanEndpoint
 
 from . import OumanEh800ConfigEntry
 from .coordinator import OumanEh800Coordinator
@@ -51,4 +51,6 @@ class OumanEh800SelectEntity(OumanEh800Entity, SelectEntity):
     @property
     def current_option(self) -> str | None:
         """Return the current selected option."""
-        return self.coordinator.data[self._endpoint].name
+        value = self.coordinator.data[self._endpoint]
+        assert isinstance(value, ControlEnum)
+        return value.name

@@ -1,6 +1,6 @@
 import logging
+from collections.abc import Sequence
 from datetime import timedelta
-from typing import Sequence
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -16,7 +16,7 @@ from ouman_eh_800_api import (
 _LOGGER = logging.getLogger(__name__)
 
 
-class OumanEh800Coordinator(DataUpdateCoordinator):
+class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValues]]):
     """Ouman EH-800 data update coordinator."""
 
     _registry_set: OumanRegistrySet

@@ -78,6 +78,8 @@ class OumanEh800NumberEntity(OumanEh800Entity, NumberEntity):
         await self.coordinator.async_request_refresh()
 
     @property
-    def native_value(self):
+    def native_value(self) -> float:
         """Return the current number value."""
-        return self.coordinator.data[self._endpoint]
+        value = self.coordinator.data[self._endpoint]
+        assert isinstance(value, float)
+        return value
