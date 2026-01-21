@@ -41,7 +41,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: OumanEh800ConfigEntry) -
     return True
 
 
-# TODO Update entry annotation
 async def async_unload_entry(hass: HomeAssistant, entry: OumanEh800ConfigEntry) -> bool:
     """Unload a config entry."""
     return await hass.config_entries.async_unload_platforms(entry, _PLATFORMS)
