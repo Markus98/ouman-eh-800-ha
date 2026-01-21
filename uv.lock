@@ -1882,14 +1882,14 @@ wheels = [
 
 [[package]]
 name = "ouman-eh-800-api"
-version = "0.2.0"
+version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e7/e1/4b6cc745783723b145f26491acf915d379858ee4a4c90a1b56989f353e15/ouman_eh_800_api-0.2.0.tar.gz", hash = "sha256:49da5069c7352eb2095d076f371fd2cb9cbb3d5b08495640e3f0283afb8faafd", size = 9986, upload-time = "2026-01-19T19:18:56.442Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/14/7d/69ebc42e96f04353c3d9b4571585ac496a5ca35a055a31d7b72c522079c4/ouman_eh_800_api-0.3.0.tar.gz", hash = "sha256:56121ce22e429a58d97149cd1193ec80bc3f1f66574faf3ca8f072af075b3798", size = 9979, upload-time = "2026-01-21T20:13:11.805Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/dc/c7/6e67292139a31db4be71c6258812174db5081807249bc6eea0eefda207f2/ouman_eh_800_api-0.2.0-py3-none-any.whl", hash = "sha256:adf10ca576909231e1b59b95658215a2c792bc03d9bcb683d4d14df541d42064", size = 12345, upload-time = "2026-01-19T19:18:55.501Z" },
+    { url = "https://files.pythonhosted.org/packages/aa/f1/293329e19db180b35bcaf44f70e7f9919b09f92a4c9c8330000f57615e85/ouman_eh_800_api-0.3.0-py3-none-any.whl", hash = "sha256:f881e3a3418a10a78937c266af307bc61658fd76b0965c593e0920f3706510e9", size = 12329, upload-time = "2026-01-21T20:13:10.535Z" },
 ]
 
 [[package]]
@@ -1913,7 +1913,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.10" },
-    { name = "ouman-eh-800-api", specifier = "==0.2.0" },
+    { name = "ouman-eh-800-api", specifier = "==0.3.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=0.23" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0" },

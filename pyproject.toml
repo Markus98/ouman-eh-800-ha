@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Home Assistant integration for Ouman EH-800"
 requires-python = ">=3.13.2"
 dependencies = [
-    "ouman-eh-800-api==0.2.0",
+    "ouman-eh-800-api==0.3.0",
 ]
 
 [project.optional-dependencies]
