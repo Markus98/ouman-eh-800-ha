@@ -28,28 +28,27 @@ This integration provides the following entities:
 
 ## Supported Devices
 
-- **Ouman EH-800** - Fully supported
+- **Ouman EH-800**
 
 > [!WARNING]
 > **Ouman EH-800B is not supported** as it does not have network connectivity.
 
 ## Data Updates
 
-This integration polls your Ouman EH-800 device over the local network at a configurable interval (default: 60 seconds). You can adjust the polling frequency in the integration options from 5 to 300 seconds. Lower intervals provide more responsive updates but increase network traffic to your device.
+This integration polls your Ouman EH-800 device over the local network at a configurable interval (default: 60 seconds). You can adjust the polling frequency in the integration options from 5 to 300 seconds.
 
 ## Known Limitations
 
-- **EH-800B not supported**: The EH-800B variant lacks network connectivity and cannot be integrated
-- **Local network only**: The device must be reachable on your local network
 - **Single device per entry**: Each integration entry connects to one EH-800 device; add multiple entries for multiple devices
 - **Unverified features**: L2 (second heating circuit) and room sensor functionality have not been verified due to lack of test hardware
+- **Local network only**: The device must be reachable on your local network
 
 > [!CAUTION]
 > **Security Warning**: The EH-800 uses an unencrypted HTTP connection and does not adhere to modern cybersecurity standards. While it is technically possible to expose the device to the internet via port forwarding, this is **highly insecure** and strongly discouraged. Keep the device on your local network only and access it remotely through secure methods like a VPN.
 
 ## Prerequisites
 
-- Ouman EH-800 heating controller (not EH-800B)
+- Ouman EH-800 heating controller
 - The device must be configured with a reachable IP address, subnet mask, and username/password (see the device manual for setup instructions)
 - The device's web interface (`http://<ip_address>:<port>`) must be reachable from Home Assistant
 
@@ -86,7 +85,7 @@ This integration polls your Ouman EH-800 device over the local network at a conf
 
 After installation, you can configure the following options:
 
-- **Scan interval**: How often to poll the device for updates (default: 60 seconds, range: 5-300 seconds)
+- **Polling interval**: How often to poll the device for updates (default: 60 seconds, range: 5-300 seconds)
 
 ## Removal
 
