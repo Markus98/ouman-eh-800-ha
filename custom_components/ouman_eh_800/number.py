@@ -4,14 +4,11 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from ouman_eh_800_api import (
     FloatControlOumanEndpoint,
     IntControlOumanEndpoint,
-    L1Endpoints,
-    L1EndpointsWithRoomSensor,
-    L2Endpoints,
-    L2EndpointsWithRoomSensor,
     OumanUnit,
 )
 
 from . import OumanEh800ConfigEntry
+from .const import TEMPERATURE_DELTA_ENDPOINTS
 from .coordinator import OumanEh800Coordinator
 from .entity import OumanEh800Entity
 
@@ -48,14 +45,11 @@ class OumanEh800NumberEntity(OumanEh800Entity, NumberEntity):
 
         self._attr_mode = NumberMode.BOX
         if endpoint.unit == OumanUnit.CELSIUS:
-            self._attr_device_class = NumberDeviceClass.TEMPERATURE
-            if endpoint in (
-                L1Endpoints.ROOM_TEMPERATURE_FINE_TUNING,
-                L1EndpointsWithRoomSensor.ROOM_TEMPERATURE_FINE_TUNING,
-                L2Endpoints.ROOM_TEMPERATURE_FINE_TUNING,
-                L2EndpointsWithRoomSensor.ROOM_TEMPERATURE_FINE_TUNING,
-            ):
-                self._attr_device_class = NumberDeviceClass.TEMPERATURE_DELTA
+            self._attr_device_class = (
+                NumberDeviceClass.TEMPERATURE_DELTA
+                if endpoint in TEMPERATURE_DELTA_ENDPOINTS
+                else NumberDeviceClass.TEMPERATURE
+            )
 
         self._attr_native_unit_of_measurement = endpoint.unit
         self._attr_native_max_value = float(endpoint.max_val)

@@ -36,7 +36,6 @@
       "relay_configuration_type": { "name": "Relay configuration type" },
       "relay_status_text": { "name": "Relay status" },
       "l2_installed_status": { "name": "L2 installed status" },
-      "l1_heating_shutdown_status": { "name": "L1 heating shutdown status" },
       "l1_temperature_level_status_text": { "name": "L1 temperature level status" },
       "l1_circuit_name": { "name": "L1 circuit name" },
       "l1_supply_water_temperature": { "name": "L1 supply water temperature" },
@@ -46,14 +45,20 @@
       "l1_room_sensor_installed": { "name": "L1 room sensor installed" },
       "l1_room_sensor_potentiometer": { "name": "L1 room sensor potentiometer" },
       "l1_room_temperature": { "name": "L1 room temperature" },
+      "l1_curve_supply_water_temperature": { "name": "L1 curve supply water temperature" },
+      "l1_fine_adjustment_effect": { "name": "L1 fine adjustment effect" },
+      "l1_delayed_room_temperature": { "name": "L1 delayed room temperature" },
       "l2_temperature_level_status_text": { "name": "L2 temperature level status" },
       "l2_circuit_name": { "name": "L2 circuit name" },
       "l2_supply_water_temperature": { "name": "L2 supply water temperature" },
       "l2_supply_water_temperature_setpoint": { "name": "L2 supply water temperature setpoint" },
       "l2_room_temperature_setpoint": { "name": "L2 room temperature setpoint" },
       "l2_room_sensor_installed": { "name": "L2 room sensor installed" },
-      "l2_room_sensor_potentiometer": { "name": "L2 room sensor potentiometer" },
-      "l2_room_temperature": { "name": "L2 room temperature" }
+      "l2_room_temperature": { "name": "L2 room temperature" },
+      "l2_valve_position": { "name": "L2 valve position" },
+      "l2_curve_supply_water_temperature": { "name": "L2 curve supply water temperature" },
+      "l2_delayed_outdoor_temperature_effect": { "name": "L2 delayed outdoor temperature effect" },
+      "l2_delayed_room_temperature": { "name": "L2 delayed room temperature" }
     },
     "number": {
       "trend_sampling_interval": { "name": "Trend sampling interval" },
@@ -66,6 +71,10 @@
       "l1_water_out_minimum_temperature": { "name": "L1 water out minimum temperature" },
       "l1_water_out_maximum_temperature": { "name": "L1 water out maximum temperature" },
       "l1_room_temperature_fine_tuning": { "name": "L1 room temperature fine tuning" },
+      "l1_curve_minus_10_temperature": { "name": "L1 curve -10°C temperature" },
+      "l1_curve_10_temperature": { "name": "L1 curve +10°C temperature" },
+      "l1_room_temperature_setpoint_user": { "name": "L1 user room temperature setpoint" },
+      "l1_constant_temp_setpoint": { "name": "L1 constant temperature setpoint" },
       "l2_valve_position_setpoint": { "name": "L2 valve position setpoint" },
       "l2_curve_minus_20_temperature": { "name": "L2 curve -20°C temperature" },
       "l2_curve_0_temperature": { "name": "L2 curve 0°C temperature" },
@@ -74,7 +83,10 @@
       "l2_big_temperature_drop": { "name": "L2 big temperature drop" },
       "l2_water_out_minimum_temperature": { "name": "L2 water out minimum temperature" },
       "l2_water_out_maximum_temperature": { "name": "L2 water out maximum temperature" },
-      "l2_room_temperature_fine_tuning": { "name": "L2 room temperature fine tuning" }
+      "l2_room_temperature_fine_tuning": { "name": "L2 room temperature fine tuning" },
+      "l2_curve_minus_10_temperature": { "name": "L2 curve -10°C temperature" },
+      "l2_curve_10_temperature": { "name": "L2 curve +10°C temperature" },
+      "l2_room_temperature_setpoint_user": { "name": "L2 user room temperature setpoint" }
     },
     "select": {
       "home_away_mode": {
@@ -105,6 +117,22 @@
           "NORMAL_TEMPERATURE": "Normal temperature",
           "SHUTDOWN": "Shutdown",
           "MANUAL_VALVE_CONTROL": "Manual valve control"
+        }
+      },
+      "relay_control": {
+        "name": "Relay control",
+        "state": {
+          "AUTO": "Auto",
+          "ON": "On",
+          "OFF": "Off"
+        }
+      },
+      "relay_pump_summer_stop_control": {
+        "name": "Relay pump summer stop control",
+        "state": {
+          "AUTO": "Auto",
+          "STOP": "Stop",
+          "RUN": "Run"
         }
       }
     }
