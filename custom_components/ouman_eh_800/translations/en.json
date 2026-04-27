@@ -62,7 +62,6 @@
     },
     "number": {
       "trend_sampling_interval": { "name": "Trend sampling interval" },
-      "l1_valve_position_setpoint": { "name": "L1 valve position setpoint" },
       "l1_curve_minus_20_temperature": { "name": "L1 curve -20°C temperature" },
       "l1_curve_0_temperature": { "name": "L1 curve 0°C temperature" },
       "l1_curve_20_temperature": { "name": "L1 curve +20°C temperature" },
@@ -75,7 +74,6 @@
       "l1_curve_10_temperature": { "name": "L1 curve +10°C temperature" },
       "l1_room_temperature_setpoint_user": { "name": "L1 user room temperature setpoint" },
       "l1_constant_temp_setpoint": { "name": "L1 constant temperature setpoint" },
-      "l2_valve_position_setpoint": { "name": "L2 valve position setpoint" },
       "l2_curve_minus_20_temperature": { "name": "L2 curve -20°C temperature" },
       "l2_curve_0_temperature": { "name": "L2 curve 0°C temperature" },
       "l2_curve_20_temperature": { "name": "L2 curve 20°C temperature" },
@@ -135,6 +133,10 @@
           "RUN": "Run"
         }
       }
+    },
+    "valve": {
+      "l1_valve_position_setpoint": { "name": "L1 valve setpoint manual control" },
+      "l2_valve_position_setpoint": { "name": "L2 valve setpoint manual control" }
     }
   }
 }

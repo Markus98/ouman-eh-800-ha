@@ -15,6 +15,7 @@ _PLATFORMS: list[Platform] = [
     Platform.SENSOR,
     Platform.NUMBER,
     Platform.SELECT,
+    Platform.VALVE,
 ]
 
 type OumanEh800ConfigEntry = ConfigEntry[OumanEh800Coordinator]
