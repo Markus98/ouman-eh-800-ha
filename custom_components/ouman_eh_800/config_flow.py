@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import uuid
 from typing import Any
 
 import voluptuous as vol
@@ -91,8 +92,8 @@ class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
                 _LOGGER.exception("Unexpected exception")
                 errors["base"] = "unknown"
             else:
-                await self.async_set_unique_id(user_input[CONF_URL])
-                self._abort_if_unique_id_configured()
+                self._async_abort_entries_match({CONF_URL: user_input[CONF_URL]})
+                _ = await self.async_set_unique_id(uuid.uuid4().hex)
                 return self.async_create_entry(title="Ouman EH-800", data=user_input)
 
         return self.async_show_form(
