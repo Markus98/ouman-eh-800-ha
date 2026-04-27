@@ -5,7 +5,6 @@ from collections.abc import Mapping
 from homeassistant.const import EntityCategory
 from ouman_eh_800_api import (
     L1BaseEndpoints,
-    L1ConstantTempMode,
     L1FivePointCurve,
     L1NoRoomSensor,
     L1RoomSensor,
@@ -26,7 +25,6 @@ DEFAULT_SCAN_INTERVAL = 60
 
 ENDPOINT_CATEGORIES: Mapping[OumanEndpoint, EntityCategory] = {
     # L1
-    L1BaseEndpoints.VALVE_POSITION_SETPOINT: EntityCategory.CONFIG,
     L1BaseEndpoints.WATER_OUT_MAX_TEMP: EntityCategory.CONFIG,
     L1BaseEndpoints.WATER_OUT_MIN_TEMP: EntityCategory.CONFIG,
     L1BaseEndpoints.CIRCUIT_NAME: EntityCategory.DIAGNOSTIC,
@@ -34,6 +32,7 @@ ENDPOINT_CATEGORIES: Mapping[OumanEndpoint, EntityCategory] = {
     L1BaseEndpoints.FINE_ADJUSTMENT_EFFECT: EntityCategory.DIAGNOSTIC,
     L1BaseEndpoints.ROOM_SENSOR_INSTALLED: EntityCategory.DIAGNOSTIC,
     L1BaseEndpoints.TEMPERATURE_LEVEL_STATUS_TEXT: EntityCategory.DIAGNOSTIC,
+    L1BaseEndpoints.SUPPLY_WATER_TEMPERATURE_SETPOINT: EntityCategory.DIAGNOSTIC,
     L1ThreePointCurve.CURVE_MINUS_20_TEMP: EntityCategory.CONFIG,
     L1ThreePointCurve.CURVE_0_TEMP: EntityCategory.CONFIG,
     L1ThreePointCurve.CURVE_20_TEMP: EntityCategory.CONFIG,
@@ -50,9 +49,7 @@ ENDPOINT_CATEGORIES: Mapping[OumanEndpoint, EntityCategory] = {
     L1NoRoomSensor.TEMPERATURE_DROP: EntityCategory.CONFIG,
     L1NoRoomSensor.BIG_TEMPERATURE_DROP: EntityCategory.CONFIG,
     L1NoRoomSensor.ROOM_TEMPERATURE_FINE_TUNING: EntityCategory.CONFIG,
-    L1ConstantTempMode.CONSTANT_TEMP_SETPOINT: EntityCategory.CONFIG,
     # L2
-    L2BaseEndpoints.VALVE_POSITION_SETPOINT: EntityCategory.CONFIG,
     L2BaseEndpoints.WATER_OUT_MAX_TEMP: EntityCategory.CONFIG,
     L2BaseEndpoints.WATER_OUT_MIN_TEMP: EntityCategory.CONFIG,
     L2BaseEndpoints.CIRCUIT_NAME: EntityCategory.DIAGNOSTIC,
@@ -60,6 +57,7 @@ ENDPOINT_CATEGORIES: Mapping[OumanEndpoint, EntityCategory] = {
     L2BaseEndpoints.DELAYED_OUTDOOR_TEMPERATURE_EFFECT: EntityCategory.DIAGNOSTIC,
     L2BaseEndpoints.ROOM_SENSOR_INSTALLED: EntityCategory.DIAGNOSTIC,
     L2BaseEndpoints.TEMPERATURE_LEVEL_STATUS_TEXT: EntityCategory.DIAGNOSTIC,
+    L2BaseEndpoints.SUPPLY_WATER_TEMPERATURE_SETPOINT: EntityCategory.DIAGNOSTIC,
     L2ThreePointCurve.CURVE_MINUS_20_TEMP: EntityCategory.CONFIG,
     L2ThreePointCurve.CURVE_0_TEMP: EntityCategory.CONFIG,
     L2ThreePointCurve.CURVE_20_TEMP: EntityCategory.CONFIG,
