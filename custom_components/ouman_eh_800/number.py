@@ -27,6 +27,10 @@ async def async_setup_entry(
         endpoint
         for endpoint in coordinator.endpoints
         if isinstance(endpoint, NumberControlOumanEndpoint)
+        and not (
+            isinstance(endpoint, IntControlOumanEndpoint)
+            and endpoint.unit == OumanUnit.PERCENT
+        )
     )
     entities = (OumanEh800NumberEntity(coordinator, endpoint) for endpoint in endpoints)
 
