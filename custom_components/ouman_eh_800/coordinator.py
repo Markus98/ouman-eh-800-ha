@@ -1,5 +1,6 @@
 import logging
 from datetime import timedelta
+from typing import override
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -50,6 +51,7 @@ class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValue
         self.select_endpoints: list[EnumControlOumanEndpoint] = []
         self.valve_endpoints: list[IntControlOumanEndpoint] = []
 
+    @override
     async def _async_setup(self) -> None:
         # Even though not required to fetch values, perform login once
         # at the start to verify that the credentials are valid.
@@ -73,6 +75,7 @@ class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValue
                 else:
                     self.number_endpoints.append(endpoint)
 
+    @override
     async def _async_update_data(self) -> dict[OumanEndpoint, OumanValues]:
         """Fetch registry values from the device."""
         try:

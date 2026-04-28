@@ -1,3 +1,5 @@
+from typing import override
+
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -52,6 +54,7 @@ class OumanEh800SensorEntity(OumanEh800Entity, SensorEntity):
             self._attr_icon = "mdi:pipe-valve"
 
     @property
+    @override
     def native_value(self) -> float | str:
         """Return the current sensor value."""
         value = self.coordinator.data[self._endpoint]

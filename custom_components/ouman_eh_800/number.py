@@ -1,3 +1,5 @@
+from typing import override
+
 from homeassistant.components.number import NumberDeviceClass, NumberEntity, NumberMode
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -56,6 +58,7 @@ class OumanEh800NumberEntity(OumanEh800Entity, NumberEntity):
             1 if isinstance(endpoint, IntControlOumanEndpoint) else 0.1
         )
 
+    @override
     async def async_set_native_value(self, value: float) -> None:
         """Change the number value."""
         final_value: float | int = value
@@ -70,6 +73,7 @@ class OumanEh800NumberEntity(OumanEh800Entity, NumberEntity):
         await self.coordinator.async_request_refresh()
 
     @property
+    @override
     def native_value(self) -> float:
         """Return the current number value."""
         value = self.coordinator.data[self._endpoint]

@@ -19,7 +19,7 @@ class OumanEh800Entity(CoordinatorEntity[OumanEh800Coordinator]):
     ) -> None:
         """Initialize the entity."""
         super().__init__(coordinator)
-        self._endpoint = endpoint
+        self._endpoint: OumanEndpoint = endpoint
 
         assert coordinator.config_entry is not None
         unique_id = coordinator.config_entry.unique_id
