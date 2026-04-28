@@ -1,6 +1,7 @@
 from typing import override
 
 from homeassistant.components.number import NumberDeviceClass, NumberEntity, NumberMode
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from ouman_eh_800_api import (
@@ -10,7 +11,7 @@ from ouman_eh_800_api import (
 )
 
 from . import OumanEh800ConfigEntry
-from .const import TEMPERATURE_DELTA_ENDPOINTS
+from .const import PRIMARY_NUMBER_ENDPOINTS, TEMPERATURE_DELTA_ENDPOINTS
 from .coordinator import OumanEh800Coordinator
 from .entity import OumanEh800Entity
 
@@ -42,6 +43,9 @@ class OumanEh800NumberEntity(OumanEh800Entity, NumberEntity):
         """Initialize the number entity."""
         super().__init__(coordinator, endpoint)
         self._endpoint: IntControlOumanEndpoint | FloatControlOumanEndpoint = endpoint
+
+        if endpoint not in PRIMARY_NUMBER_ENDPOINTS:
+            self._attr_entity_category = EntityCategory.CONFIG
 
         self._attr_mode = NumberMode.BOX
         if endpoint.unit == OumanUnit.CELSIUS:

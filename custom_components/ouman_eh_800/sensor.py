@@ -5,6 +5,7 @@ from homeassistant.components.sensor import (
     SensorEntity,
     SensorStateClass,
 )
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from ouman_eh_800_api import (
@@ -14,6 +15,7 @@ from ouman_eh_800_api import (
 )
 
 from . import OumanEh800ConfigEntry
+from .const import PRIMARY_SENSOR_ENDPOINTS
 from .coordinator import OumanEh800Coordinator
 from .entity import OumanEh800Entity
 
@@ -40,6 +42,9 @@ class OumanEh800SensorEntity(OumanEh800Entity, SensorEntity):
     def __init__(self, coordinator: OumanEh800Coordinator, endpoint: OumanEndpoint):
         """Initialize the sensor entity."""
         super().__init__(coordinator, endpoint)
+
+        if endpoint not in PRIMARY_SENSOR_ENDPOINTS:
+            self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
         is_numerical = isinstance(endpoint, NumberOumanEndpoint)
 

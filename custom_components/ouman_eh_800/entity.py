@@ -5,7 +5,7 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from ouman_eh_800_api import OumanEndpoint
 
-from .const import DOMAIN, ENDPOINT_CATEGORIES, ENDPOINTS_DISABLED_BY_DEFAULT
+from .const import DOMAIN, ENDPOINTS_DISABLED_BY_DEFAULT
 from .coordinator import OumanEh800Coordinator
 
 
@@ -34,7 +34,6 @@ class OumanEh800Entity(CoordinatorEntity[OumanEh800Coordinator]):
         )
         self._attr_unique_id = f"{unique_id}_{endpoint.name}"
         self._attr_translation_key = endpoint.name
-        self._attr_entity_category = ENDPOINT_CATEGORIES.get(endpoint)
         self._attr_entity_registry_enabled_default = (
             endpoint not in ENDPOINTS_DISABLED_BY_DEFAULT
         )
