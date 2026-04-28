@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import uuid
-from typing import Any
+from typing import Any, override
 
 import voluptuous as vol
 from homeassistant.config_entries import (
@@ -71,10 +71,12 @@ class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
 
     @staticmethod
     @callback
+    @override
     def async_get_options_flow(config_entry: ConfigEntry) -> OptionsFlowWithReload:
         """Get the options flow for this handler."""
         return OumanEh800OptionsFlow()
 
+    @override
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:

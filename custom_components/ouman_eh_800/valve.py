@@ -1,3 +1,5 @@
+from typing import override
+
 from homeassistant.components.valve import ValveEntity, ValveEntityFeature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -41,12 +43,14 @@ class OumanEh800ValveEntity(OumanEh800Entity, ValveEntity):
         self._endpoint: IntControlOumanEndpoint = endpoint
 
     @property
+    @override
     def current_valve_position(self) -> int:
         """Return current valve position 0-100."""
         value = self.coordinator.data[self._endpoint]
         assert isinstance(value, float)
         return int(value)
 
+    @override
     async def async_set_valve_position(self, position: int) -> None:
         """Move valve to the given position."""
         result = await self.coordinator.client.set_endpoint_value(
@@ -56,10 +60,12 @@ class OumanEh800ValveEntity(OumanEh800Entity, ValveEntity):
         self.async_write_ha_state()
         await self.coordinator.async_request_refresh()
 
+    @override
     async def async_open_valve(self) -> None:
         """Fully open the valve."""
         await self.async_set_valve_position(100)
 
+    @override
     async def async_close_valve(self) -> None:
         """Fully close the valve."""
         await self.async_set_valve_position(0)

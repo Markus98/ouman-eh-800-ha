@@ -1,3 +1,5 @@
+from typing import override
+
 from homeassistant.components.select import SelectEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -36,6 +38,7 @@ class OumanEh800SelectEntity(OumanEh800Entity, SelectEntity):
 
         self._attr_options: list[str] = [member.name for member in endpoint.enum_type]
 
+    @override
     async def async_select_option(self, option: str) -> None:
         """Change the selected option."""
         result = await self.coordinator.client.set_endpoint_value(
@@ -47,6 +50,7 @@ class OumanEh800SelectEntity(OumanEh800Entity, SelectEntity):
         await self.coordinator.async_request_refresh()
 
     @property
+    @override
     def current_option(self) -> str | None:
         """Return the current selected option."""
         value = self.coordinator.data[self._endpoint]

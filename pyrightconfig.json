@@ -1,0 +1,7 @@
+{
+  "reportAny": false,
+  "reportExplicitAny": false,
+  "reportUnannotatedClassAttribute": false,
+  "reportIncompatibleVariableOverride": false,
+  "reportUnusedParameter": false
+}
