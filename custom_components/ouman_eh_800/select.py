@@ -16,12 +16,10 @@ async def async_setup_entry(
     """Set up Ouman EH-800 select entities based on a config entry."""
     coordinator = entry.runtime_data
 
-    endpoints = (
-        endpoint
-        for endpoint in coordinator.endpoints
-        if isinstance(endpoint, EnumControlOumanEndpoint)
+    entities = (
+        OumanEh800SelectEntity(coordinator, endpoint)
+        for endpoint in coordinator.select_endpoints
     )
-    entities = (OumanEh800SelectEntity(coordinator, endpoint) for endpoint in endpoints)
 
     async_add_entities(entities)
 

@@ -6,7 +6,6 @@ from homeassistant.components.sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from ouman_eh_800_api import (
-    ControllableEndpoint,
     NumberOumanEndpoint,
     OumanEndpoint,
     OumanUnit,
@@ -25,12 +24,10 @@ async def async_setup_entry(
     """Set up Ouman EH-800 sensors based on a config entry."""
     coordinator = entry.runtime_data
 
-    endpoints = (
-        endpoint
-        for endpoint in coordinator.endpoints
-        if not isinstance(endpoint, ControllableEndpoint)
+    entities = (
+        OumanEh800SensorEntity(coordinator, endpoint)
+        for endpoint in coordinator.sensor_endpoints
     )
-    entities = (OumanEh800SensorEntity(coordinator, endpoint) for endpoint in endpoints)
 
     async_add_entities(entities)
 

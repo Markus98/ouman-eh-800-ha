@@ -1,15 +1,19 @@
 import logging
-from collections.abc import Sequence
 from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from ouman_eh_800_api import (
+    ControllableEndpoint,
+    EnumControlOumanEndpoint,
+    FloatControlOumanEndpoint,
+    IntControlOumanEndpoint,
     OumanClientCommunicationError,
     OumanEh800Client,
     OumanEndpoint,
     OumanRegistrySet,
+    OumanUnit,
     OumanValues,
 )
 
@@ -39,17 +43,35 @@ class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValue
         )
         self.client: OumanEh800Client = client
 
+        self.sensor_endpoints: list[OumanEndpoint] = []
+        self.number_endpoints: list[
+            IntControlOumanEndpoint | FloatControlOumanEndpoint
+        ] = []
+        self.select_endpoints: list[EnumControlOumanEndpoint] = []
+        self.valve_endpoints: list[IntControlOumanEndpoint] = []
+
     async def _async_setup(self) -> None:
-        """Fetch available registries from the device."""
         # Even though not required to fetch values, perform login once
         # at the start to verify that the credentials are valid.
         await self.client.login()
 
         self._registry_set = await self.client.get_active_registries()
 
-    @property
-    def endpoints(self) -> Sequence[OumanEndpoint]:
-        return self._registry_set.endpoints
+        # Categorize the endpoints for platforms
+        for endpoint in self._registry_set.endpoints:
+            if not isinstance(endpoint, ControllableEndpoint):
+                self.sensor_endpoints.append(endpoint)
+            elif isinstance(endpoint, EnumControlOumanEndpoint):
+                self.select_endpoints.append(endpoint)
+            elif isinstance(
+                endpoint, IntControlOumanEndpoint | FloatControlOumanEndpoint
+            ):
+                if endpoint.unit == OumanUnit.PERCENT and isinstance(
+                    endpoint, IntControlOumanEndpoint
+                ):
+                    self.valve_endpoints.append(endpoint)
+                else:
+                    self.number_endpoints.append(endpoint)
 
     async def _async_update_data(self) -> dict[OumanEndpoint, OumanValues]:
         """Fetch registry values from the device."""

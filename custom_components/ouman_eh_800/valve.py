@@ -1,7 +1,7 @@
 from homeassistant.components.valve import ValveEntity, ValveEntityFeature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from ouman_eh_800_api import IntControlOumanEndpoint, OumanUnit
+from ouman_eh_800_api import IntControlOumanEndpoint
 
 from . import OumanEh800ConfigEntry
 from .coordinator import OumanEh800Coordinator
@@ -18,9 +18,7 @@ async def async_setup_entry(
 
     entities = (
         OumanEh800ValveEntity(coordinator, endpoint)
-        for endpoint in coordinator.endpoints
-        if endpoint.unit == OumanUnit.PERCENT
-        and isinstance(endpoint, IntControlOumanEndpoint)
+        for endpoint in coordinator.valve_endpoints
     )
     async_add_entities(entities)
 
