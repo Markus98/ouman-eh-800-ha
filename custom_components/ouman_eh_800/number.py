@@ -12,8 +12,6 @@ from .const import TEMPERATURE_DELTA_ENDPOINTS
 from .coordinator import OumanEh800Coordinator
 from .entity import OumanEh800Entity
 
-NumberControlOumanEndpoint = IntControlOumanEndpoint | FloatControlOumanEndpoint
-
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -23,16 +21,10 @@ async def async_setup_entry(
     """Set up Ouman EH-800 number entities based on a config entry."""
     coordinator = entry.runtime_data
 
-    endpoints = (
-        endpoint
-        for endpoint in coordinator.endpoints
-        if isinstance(endpoint, NumberControlOumanEndpoint)
-        and not (
-            isinstance(endpoint, IntControlOumanEndpoint)
-            and endpoint.unit == OumanUnit.PERCENT
-        )
+    entities = (
+        OumanEh800NumberEntity(coordinator, endpoint)
+        for endpoint in coordinator.number_endpoints
     )
-    entities = (OumanEh800NumberEntity(coordinator, endpoint) for endpoint in endpoints)
 
     async_add_entities(entities)
 
@@ -41,11 +33,13 @@ class OumanEh800NumberEntity(OumanEh800Entity, NumberEntity):
     """Ouman EH-800 number entity."""
 
     def __init__(
-        self, coordinator: OumanEh800Coordinator, endpoint: NumberControlOumanEndpoint
+        self,
+        coordinator: OumanEh800Coordinator,
+        endpoint: IntControlOumanEndpoint | FloatControlOumanEndpoint,
     ):
         """Initialize the number entity."""
         super().__init__(coordinator, endpoint)
-        self._endpoint: NumberControlOumanEndpoint = endpoint
+        self._endpoint: IntControlOumanEndpoint | FloatControlOumanEndpoint = endpoint
 
         self._attr_mode = NumberMode.BOX
         if endpoint.unit == OumanUnit.CELSIUS:
