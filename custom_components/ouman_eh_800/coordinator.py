@@ -1,3 +1,5 @@
+"""Data update coordinator for the Ouman EH-800 integration."""
+
 import logging
 from datetime import timedelta
 from typing import override
