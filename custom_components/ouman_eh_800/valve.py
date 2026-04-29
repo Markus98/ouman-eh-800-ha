@@ -5,8 +5,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from ouman_eh_800_api import IntControlOumanEndpoint
 
-from . import OumanEh800ConfigEntry
-from .coordinator import OumanEh800Coordinator
+from .coordinator import OumanEh800ConfigEntry, OumanEh800Coordinator
 from .entity import OumanEh800Entity
 
 

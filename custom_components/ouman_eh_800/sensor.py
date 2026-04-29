@@ -14,9 +14,8 @@ from ouman_eh_800_api import (
     OumanUnit,
 )
 
-from . import OumanEh800ConfigEntry
 from .const import PRIMARY_SENSOR_ENDPOINTS
-from .coordinator import OumanEh800Coordinator
+from .coordinator import OumanEh800ConfigEntry, OumanEh800Coordinator
 from .entity import OumanEh800Entity
 
 
