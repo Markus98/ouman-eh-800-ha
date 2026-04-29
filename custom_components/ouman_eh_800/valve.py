@@ -52,12 +52,7 @@ class OumanEh800ValveEntity(OumanEh800Entity, ValveEntity):
     @override
     async def async_set_valve_position(self, position: int) -> None:
         """Move valve to the given position."""
-        result = await self.coordinator.client.set_endpoint_value(
-            self._endpoint, position
-        )
-        self.coordinator.data[self._endpoint] = result
-        self.async_write_ha_state()
-        await self.coordinator.async_request_refresh()
+        await self.coordinator.async_set_endpoint_value(self._endpoint, position)
 
     @override
     async def async_open_valve(self) -> None:
