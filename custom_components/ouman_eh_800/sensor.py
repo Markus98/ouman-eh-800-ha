@@ -55,8 +55,6 @@ class OumanEh800SensorEntity(OumanEh800Entity, SensorEntity):
         self._attr_device_class = None
         if endpoint.unit == OumanUnit.CELSIUS:
             self._attr_device_class = SensorDeviceClass.TEMPERATURE
-        elif endpoint.unit == OumanUnit.PERCENT:
-            self._attr_icon = "mdi:pipe-valve"
 
     @property
     @override
