@@ -20,6 +20,8 @@ from ouman_eh_800_api import (
 
 _LOGGER = logging.getLogger(__name__)
 
+type OumanEh800ConfigEntry = ConfigEntry[OumanEh800Coordinator]
+
 
 class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValues]]):
     """Ouman EH-800 data update coordinator."""
