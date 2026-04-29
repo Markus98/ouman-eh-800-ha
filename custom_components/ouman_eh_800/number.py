@@ -1,3 +1,5 @@
+"""Number platform for the Ouman EH-800 integration."""
+
 from typing import override
 
 from homeassistant.components.number import NumberDeviceClass, NumberEntity, NumberMode

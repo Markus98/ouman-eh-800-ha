@@ -1,3 +1,5 @@
+"""Sensor platform for the Ouman EH-800 integration."""
+
 from typing import override
 
 from homeassistant.components.sensor import (
