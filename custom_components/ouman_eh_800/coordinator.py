@@ -70,8 +70,9 @@ class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValue
             elif isinstance(
                 endpoint, IntControlOumanEndpoint | FloatControlOumanEndpoint
             ):
-                if endpoint.unit == OumanUnit.PERCENT and isinstance(
-                    endpoint, IntControlOumanEndpoint
+                if (
+                    isinstance(endpoint, IntControlOumanEndpoint)
+                    and endpoint.unit == OumanUnit.PERCENT
                 ):
                     self.valve_endpoints.append(endpoint)
                 else:
@@ -84,3 +85,14 @@ class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValue
             return await self.client.get_values(self._registry_set)
         except OumanClientCommunicationError as err:
             raise UpdateFailed("Error communicating with API") from err
+
+    async def async_set_endpoint_value(
+        self, endpoint: ControllableEndpoint, value: OumanValues | int
+    ) -> None:
+        """Set a value on the device and refresh."""
+        result = await self.client.set_endpoint_value(endpoint, value)
+        new_data = {**self.data, endpoint: result}
+        self.async_set_updated_data(new_data)
+
+        # Separate refresh on all endpoints to catch cascading changes
+        await self.async_request_refresh()

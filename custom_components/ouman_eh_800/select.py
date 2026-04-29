@@ -40,13 +40,9 @@ class OumanEh800SelectEntity(OumanEh800Entity, SelectEntity):
     @override
     async def async_select_option(self, option: str) -> None:
         """Change the selected option."""
-        result = await self.coordinator.client.set_endpoint_value(
+        await self.coordinator.async_set_endpoint_value(
             self._endpoint, self._endpoint.enum_type[option]
         )
-        self.coordinator.data[self._endpoint] = result
-        self.async_write_ha_state()
-
-        await self.coordinator.async_request_refresh()
 
     @property
     @override
