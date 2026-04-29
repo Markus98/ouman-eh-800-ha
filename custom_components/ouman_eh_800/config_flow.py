@@ -14,7 +14,7 @@ from homeassistant.config_entries import (
     OptionsFlowWithReload,
 )
 from homeassistant.const import CONF_PASSWORD, CONF_URL, CONF_USERNAME
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from ouman_eh_800_api import (
     OumanClientAuthenticationError,
@@ -49,21 +49,6 @@ def _normalize_url(url: str) -> str:
     return url.strip().removesuffix("/").removesuffix("/eh800.html").removesuffix("/")
 
 
-async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> None:
-    """Validate the user input allows us to connect and login.
-
-    Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
-    """
-    client = OumanEh800Client(
-        session=async_get_clientsession(hass),
-        username=data[CONF_USERNAME],
-        password=data[CONF_PASSWORD],
-        address=data[CONF_URL],
-    )
-
-    await client.login()
-
-
 class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Ouman EH-800."""
 
@@ -84,8 +69,14 @@ class OumanEh800ConfigFlow(ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
         if user_input is not None:
             user_input[CONF_URL] = _normalize_url(user_input[CONF_URL])
+            client = OumanEh800Client(
+                session=async_get_clientsession(self.hass),
+                username=user_input[CONF_USERNAME],
+                password=user_input[CONF_PASSWORD],
+                address=user_input[CONF_URL],
+            )
             try:
-                await validate_input(self.hass, user_input)
+                await client.login()
             except OumanClientCommunicationError:
                 errors["base"] = "cannot_connect"
             except OumanClientAuthenticationError:
