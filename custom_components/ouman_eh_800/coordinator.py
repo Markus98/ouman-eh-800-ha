@@ -4,12 +4,19 @@ from typing import override
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import (
+    ConfigEntryAuthFailed,
+    ConfigEntryNotReady,
+    HomeAssistantError,
+    ServiceValidationError,
+)
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from ouman_eh_800_api import (
     ControllableEndpoint,
     EnumControlOumanEndpoint,
     FloatControlOumanEndpoint,
     IntControlOumanEndpoint,
+    OumanClientAuthenticationError,
     OumanClientCommunicationError,
     OumanEh800Client,
     OumanEndpoint,
@@ -55,11 +62,15 @@ class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValue
 
     @override
     async def _async_setup(self) -> None:
-        # Even though not required to fetch values, perform login once
-        # at the start to verify that the credentials are valid.
-        await self.client.login()
-
-        self._registry_set = await self.client.get_active_registries()
+        try:
+            # Even though not required to fetch values, perform login once
+            # at the start to verify that the credentials are valid.
+            await self.client.login()
+            self._registry_set = await self.client.get_active_registries()
+        except OumanClientAuthenticationError as err:
+            raise ConfigEntryAuthFailed("Invalid credentials") from err
+        except OumanClientCommunicationError as err:
+            raise ConfigEntryNotReady("Error communicating with API") from err
 
         # Categorize the endpoints for platforms
         for endpoint in self._registry_set.endpoints:
@@ -90,7 +101,15 @@ class OumanEh800Coordinator(DataUpdateCoordinator[dict[OumanEndpoint, OumanValue
         self, endpoint: ControllableEndpoint, value: OumanValues | int
     ) -> None:
         """Set a value on the device and refresh."""
-        result = await self.client.set_endpoint_value(endpoint, value)
+        try:
+            result = await self.client.set_endpoint_value(endpoint, value)
+        except OumanClientAuthenticationError as err:
+            raise HomeAssistantError("Authentication failed") from err
+        except OumanClientCommunicationError as err:
+            raise HomeAssistantError("Error communicating with API") from err
+        except ValueError as err:
+            raise ServiceValidationError(str(err)) from err
+
         new_data = {**self.data, endpoint: result}
         self.async_set_updated_data(new_data)
 
