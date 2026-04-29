@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import timedelta
+
 from homeassistant.const import CONF_PASSWORD, CONF_URL, CONF_USERNAME, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -27,7 +29,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: OumanEh800ConfigEntry) -
         address=entry.data[CONF_URL],
     )
 
-    scan_interval = entry.options.get(CONF_SCAN_INTERVAL_SECONDS, DEFAULT_SCAN_INTERVAL)
+    scan_interval = timedelta(
+        seconds=entry.options.get(CONF_SCAN_INTERVAL_SECONDS, DEFAULT_SCAN_INTERVAL)
+    )
     coordinator = OumanEh800Coordinator(hass, entry, client, scan_interval)
 
     await coordinator.async_config_entry_first_refresh()
