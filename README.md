@@ -1,3 +1,9 @@
+> [!IMPORTANT]
+> This custom integration has been superseded by the [official Ouman EH-800 Home Assistant integration](https://www.home-assistant.io/integrations/ouman_eh_800/). Please migrate to the official integration to receive future updates and support.
+
+> [!WARNING]
+> Migrating from this custom integration to the official integration will not migrate existing entities. New entities will be created instead.
+
 # Ouman EH-800 Home Assistant Integration
 
 Home Assistant integration for the [Ouman EH-800 heating controller](https://ouman.fi/en/product/ouman-eh-800-and-eh-800b/).
